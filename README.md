@@ -40,6 +40,7 @@
 - belongs_to : users 
 - has_many   : comments
 - has_one    : buyer
+- has_one    : shipping_address
 
 
 ## comments テーブル
@@ -67,7 +68,7 @@
 
 - belongs_to : users 
 - belongs_to : items
-- has_one    : shipping_address
+
 
 
 ## shipping_address テーブル
@@ -83,4 +84,4 @@
 
 ### Association
 
-- belongs_to : buyer
+- belongs_to : items
