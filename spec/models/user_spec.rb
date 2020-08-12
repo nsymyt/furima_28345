@@ -3,7 +3,6 @@ describe User do
   before do
     @user = FactoryBot.build(:user)
   end
-
   describe 'ユーザー新規登録' do
     context '新規登録がうまくいくとき' do
       it 'nameとemail、passwordとpassword_confirmation、first_nameとlast_name、first_name_furiganaとlast_name_furigana、birthday_idが存在すれば登録できる' do
