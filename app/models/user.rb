@@ -20,4 +20,6 @@ class User < ApplicationRecord
     validates :last_name_furigana, format: { with: VALID_FURIGANA_REGEX }
     validates :birthday_id
   end
+
+ has_many :items
 end
