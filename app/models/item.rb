@@ -12,15 +12,14 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :text
-    validates :price, numericality: { only_integer: true, greater_than: 299, less_than: 10000000}
+    validates :price, numericality: { only_integer: true, greater_than: 299, less_than: 10_000_000 }
   end
 
-  with_options presence: true, numericality: { other_than: 1 } do
-      validates :category_id
-       validates :status_id
-      validates :delivery_fee_id
-      validates :prefecture_id
-      validates :days_until_shipping_id
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :status_id
+    validates :delivery_fee_id
+    validates :prefecture_id
+    validates :days_until_shipping_id
   end
-  
 end
