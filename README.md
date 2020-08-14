@@ -17,7 +17,7 @@
 
 - has_many : items
 - has_many : comments
-- has_many : buyer
+- has_many : buy
 
 
 ## items テーブル
@@ -38,7 +38,7 @@
 
 - belongs_to : users 
 - has_many   : comments
-- has_one    : buyer
+- has_one    : buy
 - has_one    : shipping_address
 
 
@@ -56,7 +56,7 @@
 - belongs_to : items
 
 
-## buyer テーブル
+## buy テーブル
 
 | Column              | Type    | Options                         |
 | ------------------- | ------- | ------------------------------- |
