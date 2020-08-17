@@ -5,11 +5,29 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = BuyInfo.new(transaction_params)
+    if @transaction.valid?
+      pay_item
+      @transaction.save
+      binding.pry
+      return redirect_to root_path
+    else
+      render :index
+    end
   end
 
   private
-  
+
   def transaction_params
-   params.require(:buy_info).permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number)
+   params.permit(:postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number, :item_id).merge(user_id: current_user.id)
+  end
+
+  def pay_item
+    @item = Item.find(params[:item_id])
+    Payjp.api_key = "sk_test_bf3d83e8f67be4d59407c866"  # PAY.JPテスト秘密鍵
+    Payjp::Charge.create(
+      amount: @item.price,  # 商品の値段
+      card: params[:token],    # カードトークン
+      currency:'jpy'                 # 通貨の種類
+    )
   end
 end

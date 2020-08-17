@@ -1,6 +1,6 @@
-class BuyInf
+class BuyInfo
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number
+  attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number, :user_id, :item_id
 
  #shipping_addressのバリデーション
   VALID_POSTAL_CODE_REGEX = /\A[0-9]{3}-[0-9]{4}\z/
@@ -14,11 +14,9 @@ class BuyInf
   end
 
   def save
-    #item_id取得のための設定
-    item = Item.find(params[:item_id])
     #配送先住所の保存
-    ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, house_number: house_number,building_name: building_name, phone_number: phone_number, items_id:items.id)
+    ShippingAddress.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, house_number: house_number,building_name: building_name, phone_number: phone_number, item_id:item_id)
     #購入情報の保存
-    Buy.crreate(items_id: item.id, user_id: current_user.id)
+    Buy.create(item_id: item_id, user_id: user_id)
   end
 end
