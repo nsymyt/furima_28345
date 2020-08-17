@@ -3,10 +3,11 @@ require 'rails_helper'
 describe BuyInfo do
   before do
     @buyer = FactoryBot.build(:buy_info)
+    @seller = FactoryBot.build(:item)
   end
   describe '商品の購入機能' do
     context '商品の購入がうまくいくとき' do
-      it 'クレジットカード情報、postal_code、prefecture_id、city、house_number、phone_numberが存在すれば購入できる' do
+      it 'postal_code、prefecture_id、city、house_number、phone_numberが存在すれば購入できる' do
         expect(@buyer).to be_valid
       end
     end
@@ -15,6 +16,16 @@ describe BuyInfo do
         @buyer.postal_code = nil
         @buyer.valid?
         expect(@buyer.errors.full_messages).to include("Postal code can't be blank",)
+      end
+      it 'postal_codeに-がない時、登録できない' do
+        @buyer.postal_code = "1234567"
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Postal code is invalid",)
+      end
+      it 'postal_codeに-がない時、登録できない' do
+        @buyer.postal_code = "123-４５６"
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Postal code is invalid",)
       end
       it 'prefecture_idが1を選択した時、登録できない' do
         @buyer.prefecture_id = 1

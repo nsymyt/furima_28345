@@ -1,10 +1,11 @@
 FactoryBot.define do
+  Faker::Config.locale = :ja
   factory :buy_info do
-    postal_code   { '123-4567' }
+    postal_code   { Faker::Address.postcode }
     prefecture_id { '2' }
-    city          { '福岡市博多区' }
-    house_number  { '東公園7-7' }
-    phone_number  { '09012345678' }
+    city          { Faker::Address.city }
+    house_number  { Faker::Address.street_address }
+    phone_number  { Faker::Number.number(digits: 11) }
 
   end
 end
