@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+  before_action :transition, only: :index
   def index
     @item = Item.find(params[:item_id])
   end
@@ -28,5 +29,14 @@ class TransactionsController < ApplicationController
       card: params[:token],
       currency:'jpy'
     )
+  end
+
+  def transition
+    @item = Item.find(params[:item_id])
+    if @item.user_id == current_user.id || @item.buy != nil
+      redirect_to  item_path(@item.id)
+    else
+      render :index
+    end
   end
 end
