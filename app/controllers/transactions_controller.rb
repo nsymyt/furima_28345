@@ -8,7 +8,6 @@ class TransactionsController < ApplicationController
     if @transaction.valid?
       pay_item
       @transaction.save
-      binding.pry
       return redirect_to root_path
     else
       render :index
@@ -23,11 +22,11 @@ class TransactionsController < ApplicationController
 
   def pay_item
     @item = Item.find(params[:item_id])
-    Payjp.api_key = "sk_test_bf3d83e8f67be4d59407c866"  # PAY.JPテスト秘密鍵
+    Payjp.api_key = "sk_test_bf3d83e8f67be4d59407c866"  
     Payjp::Charge.create(
-      amount: @item.price,  # 商品の値段
-      card: params[:token],    # カードトークン
-      currency:'jpy'                 # 通貨の種類
+      amount: @item.price,
+      card: params[:token],
+      currency:'jpy'
     )
   end
 end
