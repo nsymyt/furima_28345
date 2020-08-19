@@ -84,3 +84,4 @@
 ### Association
 
 - belongs_to : items
+
